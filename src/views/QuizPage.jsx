@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-plusplus */
 import React, { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import {
   HiCheck, HiPlus, HiTrash, HiX,
 } from 'react-icons/hi';
 import { Modal } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
 
 function QuizPage() {
   function generateRandomId() {
@@ -16,6 +18,8 @@ function QuizPage() {
     }
     return result;
   }
+
+  const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState(false);
   const [quizData, setQuizData] = useState({
@@ -115,9 +119,10 @@ function QuizPage() {
   };
 
   return (
-    <main className="bg-[#f2f2f2]">
-      <section className="max-w-screen-lg mx-auto min-h-screen flex flex-col py-24 px-4">
-        <div className="p-6 bg-white rounded-xl grid grid-cols-12 gap-4">
+    <main className="bg-[#f2f2f2] relative">
+      <section className="max-w-screen-lg mx-auto min-h-screen flex flex-col py-24 px-4 z-20">
+        <h1 className="font-extrabold text-4xl lg:text-6xl col-span-12 text-center mb-12 text-color-primary-500">OpenQuiz</h1>
+        <div className="p-6 bg-white rounded-xl grid grid-cols-12 gap-4 shadow-md border border-slate-200">
           <p className="col-span-12 font-bold text-lg">Detil Kuis</p>
           <div className="mb-5 col-span-12 lg:col-span-6">
             <label htmlFor="topik" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Topik Kuis</label>
@@ -126,7 +131,7 @@ function QuizPage() {
               id="topik"
               onChange={(e) => setTopik(e.target.value)}
               placeholder="Topik Kuis"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-color-primary-500 focus:border-color-primary-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-color-primary-500 dark:focus:border-color-primary-500"
               required
             />
           </div>
@@ -143,7 +148,7 @@ function QuizPage() {
             />
           </div>
         </div>
-        <div className="w-full flex justify-between items-center mt-4">
+        <div className="w-full flex justify-between items-center mt-4 px-4">
           <p className="text-lg font-bold">
             {quizData.pertanyaan.length}
             {' '}
@@ -159,7 +164,7 @@ function QuizPage() {
           </button>
         </div>
         {quizData.pertanyaan.map((item, index) => (
-          <div key={index} className="p-6 bg-white rounded-xl flex flex-col gap-y-4 mt-4">
+          <div key={index} className="p-6 bg-white rounded-xl flex flex-col gap-y-4 mt-4 shadow-md border border-slate-200">
             <div className="w-full inline-flex justify-between items-center">
               <p className="font-semibold">
                 Pertanyaan No.
@@ -318,14 +323,26 @@ function QuizPage() {
             </button>
           </Modal.Footer>
         </Modal>
-        <button
-          type="button"
-          onClick={handleSaveQuiz}
-          disabled={quizData.pertanyaan.length === 0 || isSaving}
-          className={`w-fit mt-4 px-5 py-2.5 rounded-full text-sm md:text-base font-medium text-white ${quizData.pertanyaan.length !== 0 ? 'bg-color-primary-500 ' : 'bg-color-primary-300 '} bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300 text-center`}
-        >
-          {isSaving ? 'Menyimpan...' : 'Simpan Kuis'}
-        </button>
+        <div className="flex items-center gap-x-4 mt-8">
+          <button
+            type="button"
+            onClick={() => {
+              handleSaveQuiz();
+              navigate('/list_kuis');
+            }}
+            disabled={quizData.pertanyaan.length === 0 || isSaving}
+            className={`w-full  px-5 py-2.5 rounded-full text-sm md:text-base font-medium text-white ${quizData.pertanyaan.length !== 0 ? 'bg-color-primary-500 ' : 'bg-color-primary-300 '} bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300 text-center`}
+          >
+            {isSaving ? 'Menyimpan...' : 'Simpan Kuis'}
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className="w-full px-5 py-2.5 rounded-full text-sm md:text-base font-medium text-white  bg-color-info-500 hover:bg-color-info-600 focus:ring-4 focus:outline-none focus:ring-color-info-300 text-center"
+          >
+            Kembali
+          </button>
+        </div>
       </section>
     </main>
   );
