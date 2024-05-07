@@ -7,7 +7,7 @@ function ResultPage({ correct, incorrect, total }) {
   const accuracy = ((correct / total) * 100).toFixed(2);
   return (
     <main className="bg-[#f2f2f2]">
-      <section className="max-w-screen-md h-screen mx-auto flex justify-center items-center flex-col gap-y-4 w-full">
+      <section className="max-w-screen-md h-screen mx-auto flex justify-center items-center flex-col gap-y-4 w-full px-4">
         <div className="w-full p-6 bg-white rounded-xl border border-slate-200 shadow-md">
           <h1 className="text-lg font-semibold mb-4">
             {' '}
