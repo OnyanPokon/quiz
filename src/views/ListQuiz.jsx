@@ -94,13 +94,20 @@ function ListQuiz() {
             </div>
           ))}
         </div>
-        <div>
+        <div className="inline-flex gap-x-4 px-4 w-full mt-6">
           <button
             type="button"
             onClick={() => navigate('/browse_kuis')}
-            className="w-full lg:w-fit mt-4 px-5 py-2.5 rounded-full text-sm md:text-base font-medium text-white  bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300 text-center"
+            className="w-full  px-5 py-2.5 rounded-full text-sm md:text-base font-medium text-white  bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300 text-center"
           >
             Main Kuis
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/buat_kuis')}
+            className="w-full px-5 py-2.5 rounded-full text-sm md:text-base font-medium text-white  bg-color-info-500 hover:bg-color-info-600 focus:ring-4 focus:outline-none focus:ring-color-info-300 text-center"
+          >
+            Buat Kuis
           </button>
         </div>
       </section>

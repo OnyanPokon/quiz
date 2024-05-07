@@ -89,13 +89,19 @@ function QuizPage() {
     };
 
     console.log('Mencoba menyimpan kuis:', updatedQuizData);
-
     try {
       const db = await new Promise((resolve, reject) => {
         const request = window.indexedDB.open('quizDB', 1);
 
         request.onsuccess = () => resolve(request.result);
         request.onerror = () => reject(request.error);
+
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          if (!db.objectStoreNames.contains('quizzes')) { // Pastikan toko objek belum ada sebelum membuatnya
+            db.createObjectStore('quizzes', { keyPath: 'id_kuis' });
+          }
+        };
       });
 
       const transaction = db.transaction(['quizzes'], 'readwrite');
